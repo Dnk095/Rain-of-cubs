@@ -60,8 +60,7 @@ public class Spawner : MonoBehaviour
     {
         int minValue = 2;
         int maxValue = 5;
-
-        int delay=Random.Range(minValue, maxValue+1);
+        int delay = Random.Range(minValue, maxValue + 1);
 
         yield return new WaitForSeconds(delay);
 
