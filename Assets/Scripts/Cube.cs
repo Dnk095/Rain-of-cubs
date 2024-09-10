@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class Cube : MonoBehaviour
 {
-    private Color _defoultColor;
+    private Color _defaultColor;
 
     private bool _isRelease=false;
 
@@ -10,12 +10,12 @@ public class Cube : MonoBehaviour
 
     private void Awake()
     {
-        _defoultColor = GetComponent<Renderer>().material.color;
+        _defaultColor = GetComponent<Renderer>().material.color;
     }
 
-    public void PaintDefoultColor()
+    public void PaintDefaultColor()
     {
-        GetComponent<MeshRenderer>().material.color = _defoultColor;
+        GetComponent<MeshRenderer>().material.color = _defaultColor;
     }
 
     public void Paint()
