@@ -45,7 +45,7 @@ public class Spawner : MonoBehaviour
         gameObject.SetActive(true);
 
         gameObject.TryGetComponent(out Cube cube);
-        cube.PaintDefoultColor();
+        cube.PaintDefaultColor();
 
         if (cube.IsRealised == true)
             cube.ChangeRealease();
