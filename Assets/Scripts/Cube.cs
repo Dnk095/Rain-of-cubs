@@ -1,6 +1,7 @@
-using System;
 using System.Collections;
 using UnityEngine;
+using System;
+using Random = UnityEngine.Random;
 
 [RequireComponent(typeof(MeshRenderer))]
 public class Cube : MonoBehaviour
@@ -8,9 +9,9 @@ public class Cube : MonoBehaviour
     private Color _defaultColor;
     private Material _material;
 
-    private bool _isRelease = false;
+    private bool _isCollide = false;
 
-    public event Action<Cube> CubeCollision;
+    public event Action<Cube> CubeRelease;
 
     private void Awake()
     {
@@ -20,10 +21,10 @@ public class Cube : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.TryGetComponent(out Platform platform) && _isRelease == false)
+        if (other.gameObject.TryGetComponent(out Platform platform) && _isCollide == false)
         {
-            _isRelease = true;
-            Paint();
+            _isCollide = true;
+            Recolour();
             StartCoroutine(Release());
         }
     }
@@ -33,9 +34,9 @@ public class Cube : MonoBehaviour
         _material.color = _defaultColor;
     }
 
-    private void Paint()
+    private void Recolour()
     {
-        _material.color = new Color(UnityEngine.Random.value, UnityEngine.Random.value, UnityEngine.Random.value);
+        _material.color = Random.ColorHSV();
     }
 
     private IEnumerator Release()
@@ -46,7 +47,7 @@ public class Cube : MonoBehaviour
 
         yield return new WaitForSeconds(delay);
 
-        CubeCollision?.Invoke(this);
-        _isRelease = false;
+        CubeRelease?.Invoke(this);
+        _isCollide = false;
     }
 }
