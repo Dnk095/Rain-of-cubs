@@ -13,7 +13,7 @@ public class Spawner : MonoBehaviour
     {
         _cubePool = new ObjectPool<Cube>(
             createFunc: () => Instantiate(_cubePrefab),
-            actionOnGet: (cube) => ActionOnGet(cube),
+            actionOnGet: (cube) => SetStartParameters(cube),
             actionOnRelease: (cube) => cube.gameObject.SetActive(false),
             defaultCapacity: 4,
             maxSize: 10
@@ -25,7 +25,7 @@ public class Spawner : MonoBehaviour
         StartCoroutine(Spawn());
     }
 
-    private void ActionOnGet(Cube cube)
+    private void SetStartParameters(Cube cube)
     {
         float randomValue = 20f;
         float positionX = Random.Range(-randomValue, randomValue);
@@ -36,7 +36,7 @@ public class Spawner : MonoBehaviour
             _startPosition.position.z + positionZ);
 
         cube.gameObject.SetActive(true);
-
+        cube.CubeRelease += ReleaseCube;
         cube.ResetColor();
     }
 
@@ -47,7 +47,7 @@ public class Spawner : MonoBehaviour
 
     public void ReleaseCube(Cube cube)
     {
-        cube.CubeCollision -= ReleaseCube;
+        cube.CubeRelease -= ReleaseCube;
         _cubePool.Release(cube);
     }
 
@@ -55,12 +55,12 @@ public class Spawner : MonoBehaviour
     {
         float delay = 1f;
 
+        WaitForSeconds wait = new(delay);
+
         while (enabled)
         {
-            yield return new WaitForSeconds(delay);
-
-            Cube cube = GetCube();
-            cube.CubeCollision += ReleaseCube;
+            yield return wait;
+            GetCube();
         }
     }
 }
