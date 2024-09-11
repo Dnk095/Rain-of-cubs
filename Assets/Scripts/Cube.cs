@@ -5,14 +5,12 @@ using UnityEngine;
 [RequireComponent(typeof(MeshRenderer))]
 public class Cube : MonoBehaviour
 {
-    public event Action<Cube> CubeCollision;
-
     private Color _defaultColor;
     private Material _material;
 
     private bool _isRelease = false;
 
-    public bool IsRealised => _isRelease;
+    public event Action<Cube> CubeCollision;
 
     private void Awake()
     {
@@ -22,23 +20,15 @@ public class Cube : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.TryGetComponent(out Platform platform) && IsRealised == false)
+        if (other.gameObject.TryGetComponent(out Platform platform) && _isRelease == false)
         {
-            ChangeRealease();
+            _isRelease = true;
             Paint();
             StartCoroutine(Release());
         }
     }
 
-    public void ChangeRealease()
-    {
-        if (_isRelease == false)
-            _isRelease = true;
-        else
-            _isRelease = false;
-    }
-
-    public void PaintDefaultColor()
+    public void ResetColor()
     {
         _material.color = _defaultColor;
     }
@@ -57,5 +47,6 @@ public class Cube : MonoBehaviour
         yield return new WaitForSeconds(delay);
 
         CubeCollision?.Invoke(this);
+        _isRelease = false;
     }
 }
