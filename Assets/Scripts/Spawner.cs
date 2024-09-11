@@ -4,17 +4,17 @@ using UnityEngine.Pool;
 
 public class Spawner : MonoBehaviour
 {
-    [SerializeField] private GameObject _cubePrefab;
+    [SerializeField] private Cube _cubePrefab;
     [SerializeField] private GameObject _startPosition;
 
-    private ObjectPool<GameObject> _cubePool;
+    private ObjectPool<Cube> _cubePool;
 
     private void Awake()
     {
-        _cubePool = new ObjectPool<GameObject>(
+        _cubePool = new ObjectPool<Cube>(
             createFunc: () => Instantiate(_cubePrefab),
             actionOnGet: (cube) => GetCubeParametrs(cube),
-            actionOnRelease: (cube) => cube.SetActive(false),
+            actionOnRelease: (cube) => cube.gameObject.SetActive(false),
             defaultCapacity: 4,
             maxSize: 10
            );
@@ -22,48 +22,48 @@ public class Spawner : MonoBehaviour
 
     private void Start()
     {
-        float delay = 1.0f;
-
-        InvokeRepeating(nameof(GetCube), 0f, delay);
+        StartCoroutine(Spawn());
     }
 
-    public void ReleaseCube(GameObject cube)
-    {
-        StartCoroutine(Release(cube));
-    }
-
-    private void GetCubeParametrs(GameObject gameObject)
+    private void GetCubeParametrs(Cube cube)
     {
         float randomValue = 20f;
         float positionX = Random.Range(-randomValue, randomValue);
         float positionZ = Random.Range(-randomValue, randomValue);
 
-        gameObject.transform.position = new Vector3(_startPosition.transform.position.x + positionX,
+        cube.gameObject.transform.position = new Vector3(_startPosition.transform.position.x + positionX,
             _startPosition.transform.position.y,
             _startPosition.transform.position.z + positionZ);
 
-        gameObject.SetActive(true);
+        cube.gameObject.SetActive(true);
 
-        gameObject.TryGetComponent(out Cube cube);
         cube.PaintDefaultColor();
 
         if (cube.IsRealised == true)
             cube.ChangeRealease();
     }
 
-    private void GetCube()
+    private Cube GetCube()
     {
-        _cubePool.Get();
+        return _cubePool.Get();
     }
 
-    private IEnumerator Release(GameObject cube)
+    public void ReleaseCube(Cube cube)
     {
-        int minValue = 2;
-        int maxValue = 5;
-        int delay = Random.Range(minValue, maxValue + 1);
-
-        yield return new WaitForSeconds(delay);
-
+        cube.CubeCollision -= ReleaseCube;
         _cubePool.Release(cube);
+    }
+
+    private IEnumerator Spawn()
+    {
+        float delay = 1f;
+
+        while (enabled)
+        {
+            yield return new WaitForSeconds(delay);
+
+            Cube cube = GetCube();
+            cube.CubeCollision += ReleaseCube;
+        }
     }
 }

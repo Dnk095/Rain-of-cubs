@@ -156,7 +156,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd3a468eba91b754ab0341051ff4c4cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _spawner: {fileID: 2050462910}
 --- !u!65 &171465403
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -438,7 +437,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd3a468eba91b754ab0341051ff4c4cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _spawner: {fileID: 2050462910}
 --- !u!65 &654146245
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -658,7 +656,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd3a468eba91b754ab0341051ff4c4cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _spawner: {fileID: 2050462910}
 --- !u!65 &832428042
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -850,7 +847,7 @@ GameObject:
   - component: {fileID: 1028296690}
   - component: {fileID: 1028296691}
   m_Layer: 0
-  m_Name: Triger
+  m_Name: Platform
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -964,7 +961,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd3a468eba91b754ab0341051ff4c4cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _spawner: {fileID: 2050462910}
 --- !u!1 &1338977478
 GameObject:
   m_ObjectHideFlags: 0
@@ -1043,7 +1039,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd3a468eba91b754ab0341051ff4c4cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _spawner: {fileID: 2050462910}
 --- !u!65 &1545659403
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1210,7 +1205,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ea852068a9b7824cac9e55c54cc66eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _cubePrefab: {fileID: 2837382285308472722, guid: a3319f37d0e58a24dbcc3d5cb44b22bb, type: 3}
+  _cubePrefab: {fileID: 7064277896622259371, guid: a3319f37d0e58a24dbcc3d5cb44b22bb, type: 3}
   _startPosition: {fileID: 327874364}
 --- !u!4 &2050462911
 Transform:
