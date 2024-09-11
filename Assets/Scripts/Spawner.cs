@@ -29,7 +29,7 @@ public class Spawner : MonoBehaviour
 
     public void ReleaseCube(GameObject cube)
     {
-        StartCoroutine(Wait(cube));
+        StartCoroutine(Release(cube));
     }
 
     private void GetCubePosition(GameObject gameObject)
@@ -56,7 +56,7 @@ public class Spawner : MonoBehaviour
         _cubePool.Get();
     }
 
-    private IEnumerator Wait(GameObject cube)
+    private IEnumerator Release(GameObject cube)
     {
         int minValue = 2;
         int maxValue = 5;
