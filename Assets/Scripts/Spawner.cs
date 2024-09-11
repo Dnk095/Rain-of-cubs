@@ -13,7 +13,7 @@ public class Spawner : MonoBehaviour
     {
         _cubePool = new ObjectPool<GameObject>(
             createFunc: () => Instantiate(_cubePrefab),
-            actionOnGet: (cube) => GetCubePosition(cube),
+            actionOnGet: (cube) => GetCubeParametrs(cube),
             actionOnRelease: (cube) => cube.SetActive(false),
             defaultCapacity: 4,
             maxSize: 10
@@ -32,7 +32,7 @@ public class Spawner : MonoBehaviour
         StartCoroutine(Release(cube));
     }
 
-    private void GetCubePosition(GameObject gameObject)
+    private void GetCubeParametrs(GameObject gameObject)
     {
         float randomValue = 20f;
         float positionX = Random.Range(-randomValue, randomValue);
