@@ -1185,7 +1185,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2050462911}
-  - component: {fileID: 2050462910}
+  - component: {fileID: 2050462912}
+  - component: {fileID: 2050462913}
   m_Layer: 0
   m_Name: Spawner
   m_TagString: Untagged
@@ -1193,20 +1194,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &2050462910
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2050462909}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8ea852068a9b7824cac9e55c54cc66eb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _cubePrefab: {fileID: 7064277896622259371, guid: a3319f37d0e58a24dbcc3d5cb44b22bb, type: 3}
-  _startPosition: {fileID: 327874366}
 --- !u!4 &2050462911
 Transform:
   m_ObjectHideFlags: 0
@@ -1222,3 +1209,31 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2050462912
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2050462909}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7eaa32ffad5e4274f938eb100ee0805f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _prefab: {fileID: 7064277896622259371, guid: a3319f37d0e58a24dbcc3d5cb44b22bb, type: 3}
+  _startPosition: {fileID: 327874366}
+  _bombSpawner: {fileID: 2050462913}
+--- !u!114 &2050462913
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2050462909}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6900b652723f67a4ea89b27545625646, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _prefab: {fileID: 8998184068724022063, guid: 8224e18802ae70840a5d15e949415d0b, type: 3}

@@ -21,7 +21,7 @@ public class Cube : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.TryGetComponent(out Platform platform) && _isCollide == false)
+        if (other.gameObject.TryGetComponent(out Platform _) && _isCollide == false)
         {
             _isCollide = true;
             Recolour();
@@ -43,7 +43,7 @@ public class Cube : MonoBehaviour
     {
         int minValue = 2;
         int maxValue = 5;
-        int delay = UnityEngine.Random.Range(minValue, maxValue + 1);
+        int delay = Random.Range(minValue, maxValue + 1);
 
         yield return new WaitForSeconds(delay);
 
