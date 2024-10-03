@@ -2211,7 +2211,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6900b652723f67a4ea89b27545625646, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Prefab: {fileID: 8998184068724022063, guid: 8224e18802ae70840a5d15e949415d0b, type: 3}
+  _prefab: {fileID: 8998184068724022063, guid: 8224e18802ae70840a5d15e949415d0b, type: 3}
 --- !u!4 &1904916822
 Transform:
   m_ObjectHideFlags: 0
@@ -2331,6 +2331,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7eaa32ffad5e4274f938eb100ee0805f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Prefab: {fileID: 7064277896622259371, guid: a3319f37d0e58a24dbcc3d5cb44b22bb, type: 3}
+  _prefab: {fileID: 7064277896622259371, guid: a3319f37d0e58a24dbcc3d5cb44b22bb, type: 3}
   _startPosition: {fileID: 327874366}
   _bombSpawner: {fileID: 1904916820}

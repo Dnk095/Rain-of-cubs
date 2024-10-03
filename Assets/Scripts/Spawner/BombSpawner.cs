@@ -18,10 +18,10 @@ public class BombSpawner : Spawner<Bomb>
         spawnedObject.Init();
     }
 
-    public void GetBomb(Transform transform)
+    public void GetBomb(Vector3 position)
     {
         Bomb bomb = GetObject();
-        bomb.transform.position = transform.position;
+        bomb.transform.position = position;
     }
 
     private void OnReleasing(Bomb bomb)
@@ -29,7 +29,7 @@ public class BombSpawner : Spawner<Bomb>
         base.Release(bomb);
 
         _exploder.Explode(bomb);
-        Pool.Release(bomb);
+        ReturnInPool(bomb);
         bomb.Releasing -= OnReleasing;
     }
 }

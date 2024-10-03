@@ -32,9 +32,9 @@ public class CubeSpawner : Spawner<Cube>
     {
         base.Release(cube);
 
-        _bombSpawner.GetBomb(cube.transform);
+        _bombSpawner.GetBomb(cube.transform.position);
         cube.CubeRelease -= ReleaseCube;
-        Pool.Release(cube);
+        ReturnInPool(cube);
     }
 
     private IEnumerator Spawn()

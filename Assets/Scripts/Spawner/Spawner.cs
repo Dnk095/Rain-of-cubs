@@ -4,9 +4,9 @@ using UnityEngine.Pool;
 
 public abstract class Spawner<T> : MonoBehaviour where T : MonoBehaviour
 {
-    [SerializeField] protected T Prefab;
+    [SerializeField] private T _prefab;
 
-    protected ObjectPool<T> Pool;
+    private ObjectPool<T> _pool;
 
     private int _quantityCreatedObject;
     private int _quantitySpawnedObject;
@@ -17,7 +17,7 @@ public abstract class Spawner<T> : MonoBehaviour where T : MonoBehaviour
 
     protected virtual void Awake()
     {
-        Pool = new ObjectPool<T>
+        _pool = new ObjectPool<T>
             (
             createFunc: () => CreateObject(),
             actionOnGet: (obj) => Spawn(obj),
@@ -26,15 +26,15 @@ public abstract class Spawner<T> : MonoBehaviour where T : MonoBehaviour
 
         ChangedQuantityCreatedObject?.Invoke(_quantityCreatedObject);
         ChangedQuantitySpawnedObject?.Invoke(_quantitySpawnedObject);
-        ChangedQuantityActiveObject?.Invoke(Pool.CountActive);
+        ChangedQuantityActiveObject?.Invoke(_pool.CountActive);
     }
 
-    protected virtual T CreateObject()
+    protected T CreateObject()
     {
         _quantityCreatedObject++;
         ChangedQuantityCreatedObject?.Invoke(_quantityCreatedObject);
-        ChangedQuantityActiveObject?.Invoke(Pool.CountActive);
-        return Instantiate(Prefab);
+        ChangedQuantityActiveObject?.Invoke(_pool.CountActive);
+        return Instantiate(_prefab);
     }
 
     protected virtual void Spawn(T spawnedObject)
@@ -43,17 +43,22 @@ public abstract class Spawner<T> : MonoBehaviour where T : MonoBehaviour
         _quantitySpawnedObject++;
 
         ChangedQuantitySpawnedObject?.Invoke(_quantitySpawnedObject);
-        ChangedQuantityActiveObject?.Invoke(Pool.CountActive);
+        ChangedQuantityActiveObject?.Invoke(_pool.CountActive);
     }
 
-    protected virtual void Release(T spawnedObject)
+    protected void Release(T spawnedObject)
     {
         spawnedObject.gameObject.SetActive(false);
-        ChangedQuantityActiveObject?.Invoke(Pool.CountActive);
+        ChangedQuantityActiveObject?.Invoke(_pool.CountActive);
     }
 
     protected T GetObject()
     {
-        return Pool.Get();
+        return _pool.Get();
+    }
+
+    protected void ReturnInPool(T spawnedObject)
+    {
+        _pool.Release(spawnedObject);
     }
 }
