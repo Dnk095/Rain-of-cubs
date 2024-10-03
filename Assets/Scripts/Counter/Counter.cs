@@ -6,7 +6,7 @@ public class Counter<T> : MonoBehaviour where T : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI _quantitySpawnedObjects;
     [SerializeField] private TextMeshProUGUI _quatityActiveObjects;
-    [SerializeField] private TextMeshProUGUI __quantityCreated;
+    [SerializeField] private TextMeshProUGUI _quantityCreatedObject;
     [SerializeField] private Spawner<T> _spawner;
 
     private Type _type;
@@ -18,18 +18,30 @@ public class Counter<T> : MonoBehaviour where T : MonoBehaviour
 
     private void OnEnable()
     {
-        _spawner.CountObject += Draw;
+        _spawner.ChangedQuantityCreatedObject += DrawCreatedQuantity;
+        _spawner.ChangedQuantityActiveObject += DrawActiveQuantity;
+        _spawner.ChangedQuantitySpawnedObject += DrawSpawnedQuantity;
     }
 
     private void OnDisable()
     {
-        _spawner.CountObject -= Draw;
+        _spawner.ChangedQuantityCreatedObject -= DrawCreatedQuantity;
+        _spawner.ChangedQuantityActiveObject -= DrawActiveQuantity;
+        _spawner.ChangedQuantitySpawnedObject -= DrawSpawnedQuantity;
     }
 
-    public void Draw(int created, int spawned, int active)
+    private void DrawCreatedQuantity(int quantity)
     {
-        __quantityCreated.text = $"Количество созданных {_type} = {created}";
-        _quantitySpawnedObjects.text = $"Количество заспавненых {_type} = {spawned}";
-        _quatityActiveObjects.text = $"Количество активных {_type} = {active}";
+        _quantityCreatedObject.text = $"Количество созданных {_type} = {quantity}";
+    }
+
+    private void DrawSpawnedQuantity(int quantity)
+    {
+        _quantitySpawnedObjects.text = $"Количество заспавненых {_type} = {quantity}";
+    }
+
+    private void DrawActiveQuantity(int quantity)
+    {
+        _quatityActiveObjects.text = $"Количество активных {_type} = {quantity}";
     }
 }

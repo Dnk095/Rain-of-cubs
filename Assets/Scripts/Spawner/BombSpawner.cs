@@ -11,9 +11,9 @@ public class BombSpawner : Spawner<Bomb>
         _exploder = GetComponent<BombExploder>();
     }
 
-    protected override void ActionOnGet(Bomb spawnedObject)
+    protected override void Spawn(Bomb spawnedObject)
     {
-        base.ActionOnGet(spawnedObject);
+        base.Spawn(spawnedObject);
         spawnedObject.Releasing += OnReleasing;
         spawnedObject.Init();
     }
@@ -26,10 +26,10 @@ public class BombSpawner : Spawner<Bomb>
 
     private void OnReleasing(Bomb bomb)
     {
-        base.ActionOnRelease(bomb);
+        base.Release(bomb);
 
         _exploder.Explode(bomb);
-        _pool.Release(bomb);
+        Pool.Release(bomb);
         bomb.Releasing -= OnReleasing;
     }
 }

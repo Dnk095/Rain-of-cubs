@@ -11,9 +11,9 @@ public class CubeSpawner : Spawner<Cube>
         StartCoroutine(Spawn());
     }
 
-    protected override void ActionOnGet(Cube cube)
+    protected override void Spawn(Cube cube)
     {
-        base.ActionOnGet(cube);
+        base.Spawn(cube);
 
         float randomValue = 20f;
         float positionX = Random.Range(-randomValue, randomValue);
@@ -30,11 +30,11 @@ public class CubeSpawner : Spawner<Cube>
 
     private void ReleaseCube(Cube cube)
     {
-        base.ActionOnRelease(cube);
+        base.Release(cube);
 
         _bombSpawner.GetBomb(cube.transform);
         cube.CubeRelease -= ReleaseCube;
-        _pool.Release(cube);
+        Pool.Release(cube);
     }
 
     private IEnumerator Spawn()
