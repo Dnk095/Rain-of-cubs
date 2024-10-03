@@ -11,13 +11,10 @@ public class CubeSpawner : Spawner<Cube>
         StartCoroutine(Spawn());
     }
 
-    protected override Cube CreatedFunk()
-    {
-        return Instantiate(_prefab);
-    }
-
     protected override void ActionOnGet(Cube cube)
     {
+        base.ActionOnGet(cube);
+
         float randomValue = 20f;
         float positionX = Random.Range(-randomValue, randomValue);
         float positionZ = Random.Range(-randomValue, randomValue);
@@ -33,6 +30,8 @@ public class CubeSpawner : Spawner<Cube>
 
     private void ReleaseCube(Cube cube)
     {
+        base.ActionOnRelease(cube);
+
         _bombSpawner.GetBomb(cube.transform);
         cube.CubeRelease -= ReleaseCube;
         _pool.Release(cube);

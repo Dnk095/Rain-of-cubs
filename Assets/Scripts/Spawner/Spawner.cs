@@ -1,4 +1,4 @@
-using System.Collections;
+using System;
 using UnityEngine;
 using UnityEngine.Pool;
 
@@ -8,7 +8,12 @@ public abstract class Spawner<T> : MonoBehaviour where T : MonoBehaviour
 
     protected ObjectPool<T> _pool;
 
-    private void Awake()
+    private int _quantityCreatedObject;
+    private int _quantitySpawnedObject;
+
+    public event Action<int, int, int> CountObject;
+
+    protected virtual void Awake()
     {
         _pool = new ObjectPool<T>
             (
@@ -16,18 +21,28 @@ public abstract class Spawner<T> : MonoBehaviour where T : MonoBehaviour
             actionOnGet: (obj) => ActionOnGet(obj),
             actionOnRelease: (obj) => ActionOnRelease(obj)
            );
+
+        CountObject?.Invoke(_quantityCreatedObject, _quantitySpawnedObject, _pool.CountActive);
     }
 
-    protected abstract T CreatedFunk();
+    protected virtual T CreatedFunk()
+    {
+        _quantityCreatedObject++;
+        return Instantiate(_prefab);
+    }
 
     protected virtual void ActionOnGet(T spawnedObject)
     {
         spawnedObject.gameObject.SetActive(true);
+        _quantitySpawnedObject++;
+
+        CountObject?.Invoke(_quantityCreatedObject, _quantitySpawnedObject, _pool.CountActive);
     }
 
     protected virtual void ActionOnRelease(T spawnedObject)
     {
         spawnedObject.gameObject.SetActive(false);
+        CountObject?.Invoke(_quantityCreatedObject, _quantitySpawnedObject, _pool.CountActive);
     }
 
     protected T GetObject()
